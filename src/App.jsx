@@ -1,22 +1,29 @@
+import AuthProvider from './context/AuthContext';
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
+
 import Auth from './pages/Auth';
 import Checkout from './pages/Checkout';
+import Home from './pages/Home';
+import Navbar from './components/Navbar';
+
 import './App.css';
 
 function App() {
 
   return (
-    <div className="app">
-      <Navbar />
+    <AuthProvider>
+      <div className="app">
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/auth" element={<Auth />} />
+
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
+      </div>
+    </AuthProvider>
   );
 }
 
