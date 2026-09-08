@@ -5,17 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Auth() {
-  const [mode, setMode] = useState('signup');
+  const [mode, setMode] = useState("signup");
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const {
-    signUp,
-    user,
-    logout,
-    login
-  } = useContext(AuthContext);
+  const { signUp, login } = useContext(AuthContext);
 
   const {
     register,
@@ -25,7 +20,7 @@ export default function Auth() {
 
   function onSubmit(data) {
     setError(null);
-    
+
     let result;
 
     if (mode === "signup") {
@@ -39,24 +34,23 @@ export default function Auth() {
     } else {
       setError(result.error);
     }
-  };
+  }
 
   return (
     <div className="page">
       <div className="container">
         <div className="auth-container">
-          {user && <p>User logged in: {user.email}</p>}
-          <button onClick={() => logout()}>Logout</button>
-
           <h1 className="page-title">
-            {mode === 'signup' ? 'Sign Up' : 'Login'}
+            {mode === "signup" ? "Sign Up" : "Login"}
           </h1>
 
           <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
             {error && <div className="error-message">{error}</div>}
 
             <div className="form-group">
-              <label className="form-label" htmlFor="email">Email</label>
+              <label className="form-label" htmlFor="email">
+                Email
+              </label>
 
               <input
                 className="form-input"
@@ -66,55 +60,58 @@ export default function Auth() {
               />
 
               {errors.email && (
-                <span className="form-error">
-                  {errors.email.message}
-                </span>
+                <span className="form-error">{errors.email.message}</span>
               )}
-
             </div>
 
             <div className="form-group">
-                <label className="form-label" htmlFor="password">Password</label>
+              <label className="form-label" htmlFor="password">
+                Password
+              </label>
 
-                <input
-                  className="form-input"
-                  id="password"
-                  type="password"
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 6,
-                      message: "Password must be at least 6 characters"
-                    },
-                    maxLength: {
-                      value: 12,
-                      message: "Password must be less than 12 characters"
-                    },
-                  })}
-                />
+              <input
+                className="form-input"
+                id="password"
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                  maxLength: {
+                    value: 12,
+                    message: "Password must be less than 12 characters",
+                  },
+                })}
+              />
 
-                {errors.password && (
-                  <span className="form-error">
-                    {errors.password.message}
-                  </span>
-                )}
+              {errors.password && (
+                <span className="form-error">{errors.password.message}</span>
+              )}
             </div>
-            
-            <button 
-              className="btn btn-primary btn-large" 
-              type="submit"
-            >
-              {mode === 'signup' ? 'Sign Up' : 'Login'}
+
+            <button className="btn btn-primary btn-large" type="submit">
+              {mode === "signup" ? "Sign Up" : "Login"}
             </button>
           </form>
 
           <div className="auth-switch">
-              {mode === 'signup' ? (
-                  <p>Already have an account? <span className="auth-link" onClick={() => setMode('login')}>Login</span></p>
-                ) : (
-                  <p>Don't have an account? <span className="auth-link" onClick={() => setMode('signup')}>Sign Up</span></p>
-                )
-              }
+            {mode === "signup" ? (
+              <p>
+                Already have an account?{" "}
+                <span className="auth-link" onClick={() => setMode("login")}>
+                  Login
+                </span>
+              </p>
+            ) : (
+              <p>
+                Don't have an account?{" "}
+                <span className="auth-link" onClick={() => setMode("signup")}>
+                  Sign Up
+                </span>
+              </p>
+            )}
           </div>
         </div>
       </div>
